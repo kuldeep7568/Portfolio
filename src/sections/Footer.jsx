@@ -4,9 +4,12 @@ const Footer = () => {
     <section className="flex flex-wrap items-center justify-between gap-5 pb-3  text-sm text-neutral-400 c-space ">
       <div className="mb-4 bg-gradient-to-r from-transparent via-neutral-700 to-transparent h-[1px] w-full" />
       <div className="flex gap-2">
-        <p>Terms & Conditions</p>
-        <p>|</p>
-        <p>Privacy Policy</p>
+        <a
+          href="/"
+          className="text-xl font-bold transition-colors text-neutral-400 hover:text-white"
+        >
+          Kumar
+        </a>
       </div>
       <div className="flex gap-3">
         {mySocials.map((social, index) => (
@@ -15,7 +18,7 @@ const Footer = () => {
           </a>
         ))}
       </div>
-      <p>© 2025 Ali. All rights reserved.</p>
+      <p>© {new Date().getFullYear()} Kuldeep. All rights reserved.</p>
     </section>
   );
 };

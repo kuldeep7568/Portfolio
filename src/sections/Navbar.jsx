@@ -1,33 +1,71 @@
 import { useState } from "react";
 import { motion } from "motion/react";
-function Navigation() {
+
+function Navigation({ closeMenu }) {
+  const [activeLink, setActiveLink] = useState("");
+
+  const handleSmoothScroll = (e, targetId) => {
+    e.preventDefault();
+    const targetElement = document.getElementById(targetId);
+    if (targetElement) {
+      targetElement.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+    }
+    setActiveLink(targetId);
+    // Close mobile menu if it's open
+    if (closeMenu) {
+      closeMenu();
+    }
+  };
+
+  const navItems = [
+    { id: "home", label: "Home" },
+    { id: "about", label: "About" },
+    { id: "work", label: "Work" },
+    { id: "contact", label: "Contact" },
+  ];
+
   return (
     <ul className="nav-ul">
-      <li className="nav-li">
-        <a className="nav-link" href="#home">
-          Home
-        </a>
-      </li>
-      <li className="nav-li">
-        <a className="nav-link" href="#about">
-          About
-        </a>
-      </li>
-      <li className="nav-li">
-        <a className="nav-link" href="#work">
-          Work
-        </a>
-      </li>
-      <li className="nav-li">
-        <a className="nav-link" href="#contact">
-          Contact
-        </a>
-      </li>
+      {navItems.map(item => (
+        <li key={item.id} className="nav-li group">
+          <motion.a
+            className={`nav-link block ${
+              activeLink === item.id ? "text-lavender" : ""
+            }`}
+            href={`#${item.id}`}
+            onClick={e => handleSmoothScroll(e, item.id)}
+            whileHover={{
+              scale: 1.05,
+              transition: { duration: 0.2 },
+            }}
+            whileTap={{ scale: 0.95 }}
+          >
+            <span className="relative z-10">{item.label}</span>
+            <motion.div
+              className="absolute inset-0 rounded-lg bg-gradient-to-r from-lavender/20 to-aqua/20 opacity-0 group-hover:opacity-100"
+              initial={{ opacity: 0, scale: 0.8 }}
+              whileHover={{
+                opacity: 1,
+                scale: 1,
+                transition: { duration: 0.3 },
+              }}
+            />
+          </motion.a>
+        </li>
+      ))}
     </ul>
   );
 }
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+
+  const closeMenu = () => {
+    setIsOpen(false);
+  };
+
   return (
     <div className="fixed inset-x-0 z-20 w-full backdrop-blur-lg bg-primary/40">
       <div className="mx-auto c-space max-w-7xl">
@@ -62,7 +100,7 @@ const Navbar = () => {
           transition={{ duration: 1 }}
         >
           <nav className="pb-5">
-            <Navigation />
+            <Navigation closeMenu={closeMenu} />
           </nav>
         </motion.div>
       )}
