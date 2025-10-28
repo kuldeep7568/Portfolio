@@ -1,8 +1,28 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion } from "motion/react";
 
 function Navigation({ closeMenu }) {
-  const [activeLink, setActiveLink] = useState("");
+  const [activeLink, setActiveLink] = useState("home");
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const sections = ["home", "about", "work", "experience", "contact"];
+      const scrollPosition = window.scrollY + 100; // Offset for navbar height
+
+      for (let i = sections.length - 1; i >= 0; i--) {
+        const section = document.getElementById(sections[i]);
+        if (section && section.offsetTop <= scrollPosition) {
+          setActiveLink(sections[i]);
+          break;
+        }
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    handleScroll(); // Set initial active link
+
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   const handleSmoothScroll = (e, targetId) => {
     e.preventDefault();
@@ -13,7 +33,6 @@ function Navigation({ closeMenu }) {
         block: "start",
       });
     }
-    setActiveLink(targetId);
     // Close mobile menu if it's open
     if (closeMenu) {
       closeMenu();
@@ -24,6 +43,7 @@ function Navigation({ closeMenu }) {
     { id: "home", label: "Home" },
     { id: "about", label: "About" },
     { id: "work", label: "Work" },
+    { id: "experience", label: "Experience" },
     { id: "contact", label: "Contact" },
   ];
 
