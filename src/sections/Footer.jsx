@@ -44,13 +44,17 @@ const Footer = () => {
 
       {/* Mobile Only - Additional Links */}
       <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-4 pt-4 border-t border-neutral-800 lg:hidden">
-        <div className="flex gap-4 text-xs text-neutral-500">
+        <div className="flex flex-wrap justify-center gap-2 sm:gap-4 text-xs text-neutral-500">
           <a href="#" className="hover:text-neutral-300 transition-colors">
             Terms & Conditions
           </a>
           <span>|</span>
           <a href="#" className="hover:text-neutral-300 transition-colors">
             Privacy Policy
+          </a>
+          <span>|</span>
+          <a href="#" className="hover:text-neutral-300 transition-colors">
+            Made with ❤️ Kumar
           </a>
         </div>
       </div>

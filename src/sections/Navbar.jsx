@@ -87,15 +87,33 @@ const Navbar = () => {
   };
 
   return (
-    <div className="fixed inset-x-0 z-20 w-full backdrop-blur-lg bg-primary/40">
+    <div className="fixed inset-x-0 z-50 w-full backdrop-blur-lg bg-primary/40">
       <div className="mx-auto c-space max-w-7xl">
         <div className="flex items-center justify-between py-2 sm:py-0">
-          <a
+          <motion.a
             href="/"
-            className="text-xl font-bold transition-colors text-neutral-400 hover:text-white"
+            className="relative group"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
           >
-            Kumar
-          </a>
+            <div className="relative">
+              {/* Main Logo Text with Gradient */}
+              <span className="text-xl font-bold bg-gradient-to-r from-lavender via-aqua to-mint bg-clip-text text-transparent transition-all duration-300 group-hover:from-royal group-hover:via-lavender group-hover:to-aqua">
+                Kumar
+              </span>
+
+              {/* Glow Effect */}
+              <div className="absolute inset-0 text-xl font-bold bg-gradient-to-r from-lavender/30 via-aqua/30 to-mint/30 bg-clip-text text-transparent blur-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                Kumar
+              </div>
+
+              {/* Animated Underline */}
+              <div className="absolute -bottom-1 left-0 h-0.5 w-0 bg-gradient-to-r from-lavender to-aqua transition-all duration-300 group-hover:w-full"></div>
+
+              {/* Background Shimmer Effect */}
+              <div className="absolute inset-0 rounded-md bg-gradient-to-r from-transparent via-lavender/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 -z-10"></div>
+            </div>
+          </motion.a>
           <button
             onClick={() => setIsOpen(!isOpen)}
             className="flex cursor-pointer text-neutral-400 hover:text-white focus:outline-none sm:hidden"
